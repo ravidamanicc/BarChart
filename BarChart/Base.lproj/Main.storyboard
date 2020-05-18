@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,18 +20,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wS6-br-Re1" customClass="BasicBarChart" customModule="BarChart" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="389"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="149.66666666666666"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAH-ct-PCd" customClass="BeautifulBarChart" customModule="BarChart" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="453" width="414" height="389"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="213.66666666666669" width="414" height="628.33333333333326"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uAH-ct-PCd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="946-rY-uT3"/>
-                            <constraint firstItem="uAH-ct-PCd" firstAttribute="height" secondItem="wS6-br-Re1" secondAttribute="height" id="Dpv-4v-Mqd"/>
+                            <constraint firstItem="uAH-ct-PCd" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.7" constant="1" id="Dpv-4v-Mqd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uAH-ct-PCd" secondAttribute="bottom" constant="20" id="I25-AQ-ckq"/>
                             <constraint firstAttribute="trailing" secondItem="wS6-br-Re1" secondAttribute="trailing" id="ZIO-tZ-Wag"/>
                             <constraint firstAttribute="trailing" secondItem="uAH-ct-PCd" secondAttribute="trailing" id="c7x-Tl-Ee7"/>
@@ -49,6 +47,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="140.57971014492756" y="138.61607142857142"/>
         </scene>
     </scenes>
 </document>

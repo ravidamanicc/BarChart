@@ -20,7 +20,7 @@ class BeautifulBarChart: UIView {
         didSet {
             mainLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
             
-            scrollView.contentSize = CGSize(width: presenter.computeContentWidth(), height: self.frame.size.height)
+            scrollView.contentSize = CGSize(width: presenter.computeContentWidth(), height: self.frame.size.height*2)
             mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             
             for (index, entry) in barEntries.enumerated() {
@@ -32,7 +32,7 @@ class BeautifulBarChart: UIView {
     func updateDataEntries(dataEntries: [DataEntry], animated: Bool) {
         self.animated = animated
         self.presenter.dataEntries = dataEntries
-        self.barEntries = self.presenter.computeBarEntries(viewHeight: self.frame.height)
+        self.barEntries = self.presenter.computeBarEntries(viewHeight: self.frame.height / 2)
     }
     
     override init(frame: CGRect) {
@@ -65,31 +65,56 @@ class BeautifulBarChart: UIView {
         let cgColor = barEntry.data.color.cgColor
         
         // Create the curved bar for an entry
+        if index < 4 {
         for (index, entry) in barEntry.mainBarEntry.curvedSegments.enumerated() {
-            let oldSegment = oldEntry?.mainBarEntry.curvedSegments[index]
-            mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
+
+                let oldSegment = oldEntry?.mainBarEntry.curvedSegments[index]
+                mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
+    
         }
-        
-        /// Create the top bubble
-        for (index, entry) in barEntry.topBubbleEntry.curvedSegments.enumerated() {
-            let oldSegment = oldEntry?.topBubbleEntry.curvedSegments[index]
-            mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
+            /// Create the top bubble
+            for (index, entry) in barEntry.topBubbleEntry.curvedSegments.enumerated() {
+                let oldSegment = oldEntry?.topBubbleEntry.curvedSegments[index]
+                mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
+            }
+            
+            /// Create the text above the bar, inside the top bubble
+            mainLayer.addTextLayer(frame: barEntry.topBubbleEntry.textValueFrame, color: UIColor.white.cgColor, fontSize: 14, text: barEntry.data.title, animated: animated, oldFrame: oldEntry?.topBubbleEntry.textValueFrame)
+            
         }
+        if index >= 4 {
+        for (index, entry) in barEntry.mainBarEntryUpsideDown.curvedSegments.enumerated()  {
+           
+                let oldSegment = oldEntry?.mainBarEntryUpsideDown.curvedSegments[index]
+                mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
+
+   
+
+         }
+            /// Create the top bubble
+            for (index, entry) in barEntry.bottomBubbleEntry.curvedSegments.enumerated() {
+                let oldSegment = oldEntry?.bottomBubbleEntry.curvedSegments[index]
+                mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
+            }
+            
+            /// Create the text above the bar, inside the top bubble
+            mainLayer.addTextLayer(frame: barEntry.bottomBubbleEntry.textValueFrame, color: UIColor.white.cgColor, fontSize: 14, text: barEntry.data.title, animated: animated, oldFrame: oldEntry?.bottomBubbleEntry.textValueFrame)
+            
+        }
+
         
-        /// Create the text above the bar, inside the top bubble
-        mainLayer.addTextLayer(frame: barEntry.topBubbleEntry.textValueFrame, color: UIColor.white.cgColor, fontSize: 14, text: barEntry.data.textValue, animated: animated, oldFrame: oldEntry?.topBubbleEntry.textValueFrame)
-        
+
         /// Create the line that connect top of the bar to the top bubble
-        mainLayer.addLineLayer(lineSegment: barEntry.linkingLine, color: cgColor, width: 2.0, isDashed: false, animated: animated, oldSegment: oldEntry?.linkingLine)
-        /// Create a small circle at the top of the linking line
-        let radius: CGFloat = 3.0
-        var oldPosition: CGPoint? = nil
-        if let oldEntry = oldEntry {
-            oldPosition = CGPoint(x: oldEntry.linkingLine.endPoint.x - radius, y: oldEntry.linkingLine.endPoint.y)
-        }
-        mainLayer.addCircleLayer(origin: CGPoint(x: barEntry.linkingLine.endPoint.x - radius, y: barEntry.linkingLine.endPoint.y) , radius: radius, color: cgColor, animated: animated, oldOrigin: oldPosition)
-        
+//        mainLayer.addLineLayer(lineSegment: barEntry.linkingLine, color: cgColor, width: 2.0, isDashed: false, animated: animated, oldSegment: oldEntry?.linkingLine)
+//        /// Create a small circle at the top of the linking line
+//        let radius: CGFloat = 3.0
+//        var oldPosition: CGPoint? = nil
+//        if let oldEntry = oldEntry {
+//            oldPosition = CGPoint(x: oldEntry.linkingLine.endPoint.x - radius, y: oldEntry.linkingLine.endPoint.y)
+//        }
+//        mainLayer.addCircleLayer(origin: CGPoint(x: barEntry.linkingLine.endPoint.x - radius, y: barEntry.linkingLine.endPoint.y) , radius: radius, color: cgColor, animated: animated, oldOrigin: oldPosition)
+//        
         /// Create text below the bar
-        mainLayer.addTextLayer(frame: barEntry.bottomTitleFrame, color: cgColor, fontSize: 14, text: barEntry.data.title, animated: animated, oldFrame: oldEntry?.bottomTitleFrame)
+//        mainLayer.addTextLayer(frame: barEntry.bottomTitleFrame, color: cgColor, fontSize: 14, text: barEntry.data.title, animated: animated, oldFrame: oldEntry?.bottomTitleFrame)
     }
 }
